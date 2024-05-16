@@ -10,7 +10,7 @@ export class AuthService {
 
   constructor(private tokenService: TokenService, private http: HttpClient) { }
   onLogin(data: any) {
-    return this.http.post('http://localhost:5000/users/signin', data).pipe(
+    return this.http.post('https://note-api-jet.vercel.app/users/signin', data).pipe(
       map((response: any) => {
         if (response) {
           this.tokenService.setToken(response.token)
@@ -20,7 +20,7 @@ export class AuthService {
     )
   }
   onSignup(data: any) {
-    return this.http.post('http://localhost:5000/users/signup', data).pipe(
+    return this.http.post('https://note-api-jet.vercel.app/users/signup', data).pipe(
       map((response: any) => {
         if (response) {
           this.tokenService.setToken(response.token)

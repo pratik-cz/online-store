@@ -1,0 +1,43 @@
+<div class="row mt-4" *ngIf="product">
+  <div class="col-md-12 my-2">
+    <nav
+      style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+      aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a style="text-decoration: none;" routerLink="/products">Products</a></li>
+        <li class="breadcrumb-item"><a style="text-decoration: none;" [routerLink]="['/products/category/',product?.category]">{{product?.category |titlecase}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{product?.title}}</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-md-6">
+    <div
+      style="border: 1px solid #ccc;display: flex;flex-direction: column; align-items: center;justify-content: center;padding:40px;height: 70vh;">
+      <img [src]="product?.image" style="width: 50%;" />
+    </div>
+
+  </div>
+  <div class="col-md-6" style="padding: 40px;">
+    <h3 style="margin-bottom: 30px;">{{product?.title}}</h3>
+    <p style="margin-bottom: 50px;">
+      {{product?.description}}
+    </p>
+    <h4>{{product?.price | currency:'INR'}}</h4>
+    <span>{{product?.category}}</span>
+
+    <div style="margin-top: 50px;">
+      <button class="btn btn-lg btn-warning" (click)="addToCart(product)">Add To Cart</button>
+    </div>
+  </div>
+  <div class="my-4">
+    <hr />
+  </div>
+  <div class="col-md-12">
+    <h3>Related Products</h3>
+    <div class="row my-4">
+      <div class="col-md-3 mt-4" *ngFor="let item of relatedProducts">
+        <app-product [product]="item" [cardType]="'grid'"  (addToCartEvent)="addToCart($event)"></app-product>
+      </div>
+    </div>
+  </div>
+</div>

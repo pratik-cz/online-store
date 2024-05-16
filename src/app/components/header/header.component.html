@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 1px solid #ccc;">
+    <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active" *ngIf="!(isAuthenticated$|async)">
+                    <a class="nav-link" routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Login</a>
+                </li>
+                <li class="nav-item active" *ngIf="!(isAuthenticated$|async)">
+                    <a class="nav-link" routerLink="/signup"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="isAuthenticated$|async" routerLink="/dashboard"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                        style="cursor: pointer;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="isAuthenticated$|async" routerLink="/products"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                        style="cursor: pointer;">Products</a>
+                </li>
+                <li class="nav-item">
+
+                    <div ngbDropdown class="d-inline-block" display="dynamic">
+                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle *ngIf="isAuthenticated$|async"
+                            style="cursor: pointer;"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Category</a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-end">
+                            <ng-container *ngIf="isAuthenticated$|async">
+                                <a class="nav-link" ngbDropdownItem  [routerLink]="['/products/category/',item]"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                                style="cursor: pointer;" *ngFor="let item of categories">{{item}}</a>
+                            </ng-container>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="isAuthenticated$|async" routerLink="/cart"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" style="cursor: pointer;">
+                        Cart
+                        <span class="badge rounded-pill bg-warning text-dark">{{cartItemCount}}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+
+                    <div ngbDropdown class="d-inline-block" display="dynamic">
+                        <!-- <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                            Toggle dropdown
+                        </button> -->
+                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle *ngIf="isAuthenticated$|async"
+                            style="cursor: pointer;">User</a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-end">
+                            <a class="nav-link" ngbDropdownItem *ngIf="isAuthenticated$|async"
+                                style="cursor: pointer;">profile</a>
+                            <a class="nav-link" ngbDropdownItem *ngIf="isAuthenticated$|async"
+                                style="cursor: pointer;">Settings</a>
+                            <a class="nav-link" ngbDropdownItem *ngIf="isAuthenticated$|async" (click)="onLogout()"
+                                style="cursor: pointer;">Logout</a>
+                            <!-- <button ngbDropdownItem>Action - 1</button>
+                            <button ngbDropdownItem>Another Action</button>
+                            <button ngbDropdownItem>Something else is here</button> -->
+                        </div>
+                    </div>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link" *ngIf="isAuthenticated$|async" (click)="onLogout()"
+                        style="cursor: pointer;">Logout</a>
+                </li> -->
+            </ul>
+
+        </div>
+    </div>
+</nav>

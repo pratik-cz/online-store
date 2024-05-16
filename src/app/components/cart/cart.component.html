@@ -1,0 +1,86 @@
+<div class="row mb-4"  *ngIf="cart.length>0 ;else cartEmpty">
+    <div class="col-md-5">
+        <div class="mt-4 mb-4">
+            <h3>Shipping Info</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" class="form-control my-1" placeholder="Full Name"/>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control my-1" placeholder="Email"/>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control my-1" placeholder="Mobile No."/>
+            </div>
+            <div class="col-md-12">
+                <textarea class="form-control my-1" placeholder="Shipping Address"></textarea>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control my-1" placeholder="State"/>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control my-1" placeholder="City"/>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control my-1" placeholder="Pin Code"/>
+            </div>
+            <div style="display: flex;flex-direction: column;align-items: end;justify-content: end;">
+                <button class="btn btn-warning btn-lg mt-4">Checkout Now</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <div class="mt-4">
+            <h3>Cart</h3>
+        </div>
+        <ng-container>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Item</th>
+                        <th style="text-align: center;">Qty</th>
+                        <th></th>
+                        <th style="text-align: center;">Total</th>
+                        <th style="text-align: center;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cart">
+                        <td style="width: 70%;">
+                            <div style="display: flex;">
+                                <div><img [src]="item.image" style="width: 40px;" /></div>
+                                <div style="margin-left: 40px; ">
+                                    <label>{{item.title}}</label><br>
+                                    <span style="color: #555;">{{item.price|currency:'INR'}} x {{item.count}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="text-align: center;width: 20%;">
+                            <div style="display: flex;justify-content: space-between;">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                    style="border-radius: 20px;width: 30px;height: 30px;" [disabled]="(+item.count<=1)"  (click)="updateCart('-',item)" >-</button>
+                                <div>{{item.count}}</div>
+                                <button class="btn btn-sm btn-outline-secondary"
+                                    style="border-radius: 20px;width: 30px;height: 30px;" [disabled]="(+item.count>=10)" (click)="updateCart('+',item)">+</button>
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>{{item.price * item.count |currency:'INR'}}</td>
+                        <td><button class="btn" style="border-radius: 20px;" (click)="removeCartItem(item.id)">X</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="display: flex;flex-direction: column;align-items: end;justify-content: end;padding-right: 30px;">
+                <strong>Grand Total : </strong>
+                <span>{{ total | currency:'INR' }}</span>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<ng-template #cartEmpty>
+   <div class="d-flex" style="flex-direction: column;align-items: center;justify-content: center;height: 80vh;">
+    <img src="https://mir-s3-cdn-cf.behance.net/projects/404/1193a0190120037.Y3JvcCw4OTQsNzAwLDgxLDA.png"/>
+</div>
+</ng-template>

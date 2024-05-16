@@ -1,0 +1,31 @@
+<div class="card" *ngIf="cardType=='grid'">
+  <div class="p-4" style="display:flex;flex-direction: row;align-items: center;justify-content: center;"><img [src]="product?.image" class="card-img-top" alt="" style="width: 100px; height: 150px;"></div>
+  <div class="card-body">
+    <h5 class="card-title">{{product.title.length<30 ?product.title : (product.title| slice: 0 : 30)+"..." }}</h5>
+        <p class="card-text">{{product.description.length<100 ?product.description : (product.description| slice: 0 :
+            100)+"..." }}</p>
+            <p>{{product.price|currency:'INR'}}</p>
+            <a [routerLink]="['/product-detail',product.id]" class="btn btn-warning" style="margin-right: 10px;">View
+              Details</a>
+            <button class="btn btn-warning" (click)="addToCart(product)">Add To Cart</button>
+  </div>
+</div>
+
+<div class="card" *ngIf="cardType=='list'">
+  <div class="row g-0">
+    <div class="col-md-2 p-2 d-flex" style="flex-direction: column;align-items: center;justify-content: center;">
+      <img [src]="product?.image" class="img-fluid rounded-start" alt="..." style="height: 150px;">
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{product.title }}</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+          This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">{{product.price|currency:'INR'}}</small></p>
+        <a [routerLink]="['/product-detail',product.id]" class="btn btn-warning" style="margin-right: 10px;">View
+          Details</a>
+        <button  class="btn btn-warning" (click)="addToCart(product)">Add To Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
